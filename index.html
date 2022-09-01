@@ -47,8 +47,8 @@
                 document.querySelector("#message").innerHTML = "Your password and confirm pasword does not match.";
             }
             // now we will send a post request to our server.
-
-            axios.post('http://localhost:3000/signup', {
+            // http://localhost:3000/signup
+            axios.post('https://login-signup-with-mongo-db.herokuapp.com/', {
                 "name": name,
                 "email": email,
                 "city": city,
