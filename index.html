@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <h1>Sign Up</h1>
+
+    <form action="" onsubmit="signUp(); return false;">
+        <label for="name">Name</label>
+        <input type="text" id="name"> <br>
+
+        <label for="email">Email</label>
+        <input type="email" id="email"> <br>
+
+        <label for="city">City</label>
+        <input type="text" id="city"> <br>
+
+        <label for="password">Password</label>
+        <input type="password" id="password"> <br>
+
+        <label for="c_password">Confirm Password</label>
+        <input type="password" id="c_password"> <br>
+
+        <input type="submit" value="Sign Up">
+    </form>
+    <br>
+    <p id="message"></p>
+
+    <br> <br> <br>
+    <p>Already have an accout? Click <a href="signin.html"> here </a> to login</p>
+    <script>
+        function signUp() {
+            let name = document.querySelector("#name").value;
+            let email = document.querySelector("#email").value;
+            let city = document.querySelector("#city").value;
+            let password = document.querySelector("#password").value;
+            let c_password = document.querySelector("#c_password").value;
+
+            if (password !== c_password) {
+                document.querySelector("#message").innerHTML = "Your password and confirm pasword does not match.";
+            }
+            // now we will send a post request to our server.
+
+            axios.post('http://localhost:3000/signup', {
+                "name": name,
+                "email": email,
+                "city": city,
+                "password": password,
+                "c_password": c_password
+            })
+                .then(function (response) {
+
+                    console.log(response.data);
+                    document.querySelector("#message").innerHTML = response.data.message;
+                })
+                .catch(function (error) {
+                    document.querySelector("#message").innerHTML = error.response.data.message;
+                    console.log(error.response.data.message);
+                });
+        }
+
+    </script>
+</body>
+
+</html>

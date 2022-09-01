@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <h1>Sign In</h1>
+
+    <form action="" onsubmit="signIn(); return false;">
+
+        <label for="email">Email</label>
+        <input type="email" id="email"> <br>
+
+        <label for="password">Password</label>
+        <input type="password" id="password"> <br>
+
+        <input type="submit" value="Sign In">
+    </form>
+    <br>
+    <p id="message"></p>
+
+    <script>
+        function signIn() {
+
+            let email = document.querySelector("#email").value;
+            let password = document.querySelector("#password").value;
+
+            // now we will send a post request to our server.
+
+            axios.post('https://login-signup-without-database.herokuapp.com/signin', {
+
+                "email": email,
+                "password": password,
+
+            })
+                .then(function (response) {
+
+                    console.log(response.data);
+                    document.querySelector("#message").innerHTML = response.data.message;
+                })
+                .catch(function (error) {
+                    document.querySelector("#message").innerHTML = error.response.data.message;
+                    console.log(error.message);
+                });
+        }
+
+    </script>
+</body>
+
+</html>
